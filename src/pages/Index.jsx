@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Box, Heading, Input, Button, Stack, Text, Grid, Image, Link } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-
-const suggestedPatterns = ["Head and Shoulders", "Cup and Handle", "Double Top", "Wedge"];
+import PatternDropdown from "../components/PatternDropdown";
 
 const Index = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [selectedPattern, setSelectedPattern] = useState("");
 
   const searchPatterns = async () => {
     // Simulated API call to search for stock patterns
-    const response = await fetch(`https://api.example.com/stocks?pattern=${query}`);
+    const response = await fetch(`https://api.example.com/stocks?pattern=${selectedPattern}`);
     const data = await response.json();
     setResults(data);
   };
@@ -25,20 +25,7 @@ const Index = () => {
         <Button leftIcon={<FaSearch />} colorScheme="blue" onClick={searchPatterns}>
           Search
         </Button>
-      </Stack>
-      <Stack direction="row" spacing={4} mb={8}>
-        {suggestedPatterns.map((pattern) => (
-          <Button
-            key={pattern}
-            size="sm"
-            onClick={() => {
-              setQuery(pattern);
-              searchPatterns();
-            }}
-          >
-            {pattern}
-          </Button>
-        ))}
+        <PatternDropdown value={selectedPattern} onChange={(e) => setSelectedPattern(e.target.value)} />
       </Stack>
       {results.length > 0 ? (
         <Grid templateColumns="repeat(3, 1fr)" gap={8}>
