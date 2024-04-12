@@ -11,7 +11,26 @@ const Index = () => {
   const searchPatterns = async () => {
     // Simulated API call to search for stock patterns
     const response = await fetch(`https://api.example.com/stocks?pattern=${selectedPattern}`);
-    const data = await response.json();
+    const data = [
+      {
+        symbol: "AAPL",
+        name: "Apple Inc.",
+        description: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide.",
+        url: "https://finance.yahoo.com/quote/AAPL",
+      },
+      {
+        symbol: "TSLA",
+        name: "Tesla, Inc.",
+        description: "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally.",
+        url: "https://finance.yahoo.com/quote/TSLA",
+      },
+      {
+        symbol: "AMZN",
+        name: "Amazon.com, Inc.",
+        description: "Amazon.com, Inc. engages in the retail sale of consumer products and subscriptions in North America and internationally.",
+        url: "https://finance.yahoo.com/quote/AMZN",
+      },
+    ];
     setResults(data);
   };
 
