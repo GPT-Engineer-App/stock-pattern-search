@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Box, Heading, Input, Button, Stack, Text, Grid, Image, Link } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
+const suggestedPatterns = ["Head and Shoulders", "Cup and Handle", "Double Top", "Wedge"];
+
 const Index = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -18,11 +20,25 @@ const Index = () => {
       <Heading as="h1" size="xl" mb={8}>
         Stock Pattern Search
       </Heading>
-      <Stack direction="row" mb={8}>
+      <Stack direction="row" mb={4}>
         <Input placeholder="Enter a pattern (e.g., head and shoulders)" value={query} onChange={(e) => setQuery(e.target.value)} />
         <Button leftIcon={<FaSearch />} colorScheme="blue" onClick={searchPatterns}>
           Search
         </Button>
+      </Stack>
+      <Stack direction="row" spacing={4} mb={8}>
+        {suggestedPatterns.map((pattern) => (
+          <Button
+            key={pattern}
+            size="sm"
+            onClick={() => {
+              setQuery(pattern);
+              searchPatterns();
+            }}
+          >
+            {pattern}
+          </Button>
+        ))}
       </Stack>
       {results.length > 0 ? (
         <Grid templateColumns="repeat(3, 1fr)" gap={8}>
